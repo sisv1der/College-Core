@@ -56,7 +56,7 @@ College-Core
     Подробности см. в README.md соответствующих компонентов.
 
 ## Документация
-- **План проекта, описание процессов:**  [`docs/PLAN.md`](docs/plan.md)
+- **План проекта, описание процессов:**  [`docs/PLAN.md`](docs/PLAN.md)
 - **Общие инструкции:** [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md)
 - **Справочные материалы:** [`docs/HELP.md`](docs/HELP.md)
 - **Troubleshooting:** [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md)
