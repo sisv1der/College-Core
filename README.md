@@ -56,7 +56,10 @@ College-Core
     Подробности см. в README.md соответствующих компонентов.
 
 ## Документация
-- **План проекта, описание процессов:**  `docs/plan.md`
+- **План проекта, описание процессов:**  `docs/PLAN.md`
+- **Общие инструкции:** `docs/CONTRIBUTING.md`
+- **Справочные материалы:** `docs/HELP.md`
+- **Troubleshooting:** `docs/TROUBLESHOOTING.md`
 - **Схема базы данных:** 
   - **DBML:** `/docs/db-schema.dbml`
   - **DBML-диаграмма:** `/docs/db-schema.png` 
