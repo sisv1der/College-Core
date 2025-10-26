@@ -1,0 +1,405 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-1-create-tables
+      author: IvanYarigo
+      changes:
+
+        # users
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password_hash
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: "NOW()"
+
+        # roles
+        - createTable:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: description
+                  type: TEXT
+
+        # permissions
+        - createTable:
+            tableName: permissions
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: code
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: description
+                  type: TEXT
+
+        # role_permissions
+        - createTable:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: permission_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: role_permissions
+            columnNames: role_id, permission_id
+            constraintName: pk_role_permissions_composite
+
+        # user_roles
+        - createTable:
+            tableName: user_roles
+            columns:
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: user_roles
+            columnNames: user_id, role_id
+            constraintName: pk_user_roles_composite
+
+        # profiles
+        - createTable:
+            tableName: profiles
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: full_name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+
+        # groups
+        - createTable:
+            tableName: groups
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT
+
+        # profile_groups
+        - createTable:
+            tableName: profile_groups
+            columns:
+              - column:
+                  name: profile_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: group_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: profile_groups
+            columnNames: profile_id, group_id
+            constraintName: pk_profile_groups_composite
+
+        # absence_profiles
+        - createTable:
+            tableName: absence_profiles
+            columns:
+              - column:
+                  name: absence_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: profile_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: absence_profiles
+            columnNames: absence_id, profile_id
+            constraintName: pk_absence_profiles_composite
+
+        # absences
+        - createTable:
+            tableName: absences
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: reason
+                  type: VARCHAR(5)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: note
+                  type: TEXT
+              - column:
+                  name: recorded_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: "NOW()"
+
+  - changeSet:
+      id: 001-2-create-relations
+      author: IvanYarigo
+      changes:
+
+        # user_roles
+        - addForeignKeyConstraint:
+            baseTableName: user_roles
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_user_roles_users
+            onDelete: CASCADE
+            onUpdate: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableName: user_roles
+            baseColumnNames: role_id
+            referencedTableName: roles
+            referencedColumnNames: id
+            constraintName: fk_user_roles_roles
+            onDelete: CASCADE
+            onUpdate: CASCADE
+
+        # role_permissions
+        - addForeignKeyConstraint:
+            baseTableName: role_permissions
+            baseColumnNames: role_id
+            referencedTableName: roles
+            referencedColumnNames: id
+            constraintName: fk_user_permissions_roles
+            onDelete: CASCADE
+            onUpdate: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableName: role_permissions
+            baseColumnNames: permission_id
+            referencedTableName: permissions
+            referencedColumnNames: id
+            constraintName: fk_user_permissions_permissions
+            onDelete: CASCADE
+            onUpdate: CASCADE
+
+        # profile_groups
+        - addForeignKeyConstraint:
+            baseTableName: profile_groups
+            baseColumnNames: profile_id
+            referencedTableName: profiles
+            referencedColumnNames: id
+            constraintName: fk_profile_groups_profiles
+            onDelete: CASCADE
+            onUpdate: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableName: profile_groups
+            baseColumnNames: group_id
+            referencedTableName: groups
+            referencedColumnNames: id
+            constraintName: fk_profile_groups_groups
+            onDelete: CASCADE
+            onUpdate: CASCADE
+
+        # absence_profiles
+        - addForeignKeyConstraint:
+            baseTableName: absence_profiles
+            baseColumnNames: absence_id
+            referencedTableName: absences
+            referencedColumnNames: id
+            constraintName: fk_absence_profiles_absences
+            onDelete: CASCADE
+            onUpdate: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableName: absence_profiles
+            baseColumnNames: profile_id
+            referencedTableName: profiles
+            referencedColumnNames: id
+            constraintName: fk_absence_profiles_profiles
+            onDelete: CASCADE
+            onUpdate: CASCADE
+
+  - changeSet:
+      id: 001-3-add-indexes
+      author: IvanYarigo
+      changes:
+
+        # users
+        - createIndex:
+            tableName: users
+            indexName: idx_users_username
+            columns:
+              - column:
+                  name: username
+
+        # roles
+        - createIndex:
+            tableName: roles
+            indexName: idx_roles_name
+            columns:
+              - column:
+                  name: name
+
+        # permissions
+        - createIndex:
+            tableName: permissions
+            indexName: idx_permissions_code
+            columns:
+              - column:
+                  name: code
+
+        # profiles
+        - createIndex:
+            tableName: profiles
+            indexName: idx_profiles_user_id
+            columns:
+              - column:
+                  name: user_id
+
+        # groups
+        - createIndex:
+            tableName: groups
+            indexName: idx_groups_name
+            columns:
+              - column:
+                  name: name
+
+        # user_roles
+        - createIndex:
+            tableName: user_roles
+            indexName: idx_user_roles_user_id
+            columns:
+              - column:
+                  name: user_id
+        - createIndex:
+            tableName: user_roles
+            indexName: idx_user_roles_role_id
+            columns:
+              - column:
+                  name: role_id
+
+        # role_permissions
+        - createIndex:
+            tableName: role_permissions
+            indexName: idx_role_permissions_role_id
+            columns:
+              - column:
+                  name: role_id
+        - createIndex:
+            tableName: role_permissions
+            indexName: idx_role_permissions_permission_id
+            columns:
+              - column:
+                  name: permission_id
+
+        # profile_groups
+        - createIndex:
+            tableName: profile_groups
+            indexName: idx_profile_groups_profile_id
+            columns:
+              - column:
+                  name: profile_id
+        - createIndex:
+            tableName: profile_groups
+            indexName: idx_profile_groups_group_id
+            columns:
+              - column:
+                  name: group_id
+
+        # absences
+        - createIndex:
+            tableName: absences
+            indexName: idx_absences_reason
+            columns:
+              - column:
+                  name: reason
+
+        # absence_profiles
+        - createIndex:
+            tableName: absence_profiles
+            indexName: idx_absence_profiles_absence_id
+            columns:
+              - column:
+                  name: absence_id
+        - createIndex:
+            tableName: absence_profiles
+            indexName: idx_absence_profiles_profile_id
+            columns:
+              - column:
+                  name: profile_id

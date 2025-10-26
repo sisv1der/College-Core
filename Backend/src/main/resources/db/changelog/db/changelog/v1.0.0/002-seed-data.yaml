@@ -1,0 +1,121 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-1
+      author: your_name
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: "TEACHER"
+              - column:
+                  name: description
+                  value: "Преподаватель"
+
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: "ADMIN"
+              - column:
+                  name: description
+                  value: "Администратор"
+
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: code
+                  value: "user.view"
+              - column:
+                  name: description
+                  value: "Просмотр пользователей"
+
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: code
+                  value: "user.edit"
+              - column:
+                  name: description
+                  value: "Редактирование пользователей"
+
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: code
+                  value: "group.view"
+              - column:
+                  name: description
+                  value: "Просмотр групп"
+
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: code
+                  value: "group.edit"
+              - column:
+                  name: description
+                  value: "Редактирование групп"
+
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: code
+                  value: "attendance.view"
+              - column:
+                  name: description
+                  value: "Просмотр посещаемости"
+
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: code
+                  value: "attendance.edit"
+              - column:
+                  name: description
+                  value: "Редактирование посещаемости"
+
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: code
+                  value: "report.view"
+              - column:
+                  name: description
+                  value: "Просмотр отчетов"
+
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: code
+                  value: "system.manage"
+              - column:
+                  name: description
+                  value: "Управление системой"
+
+  - changeSet:
+      id: 002-2
+      author: your_name
+      changes:
+        - sql:
+            sql: |
+              -- Назначаем разрешения для преподавателя
+              INSERT INTO role_permissions (role_id, permission_id)
+              SELECT r.id, p.id FROM roles r, permissions p 
+              WHERE r.name = 'teacher' 
+              AND p.code IN ('user.view', 'group.view', 'lesson.view', 'lesson.edit', 'attendance.view', 'attendance.edit', 'report.view');
+
+              -- Назначаем разрешения для администратора (все права)
+              INSERT INTO role_permissions (role_id, permission_id)
+              SELECT r.id, p.id FROM roles r, permissions p 
+              WHERE r.name = 'admin';
