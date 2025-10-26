@@ -1,0 +1,72 @@
+Table users {
+  id BIGSERIAL [pk, not null]
+  username VARCHAR(50) [not null, unique]
+  password_hash VARCHAR(255) [not null]
+  created_at TIMESTAMP [default: `NOW()`]
+}
+
+Table roles {
+  id BIGSERIAL [pk, not null]
+  name VARCHAR(50) [not null, unique]
+  description TEXT
+}
+
+Table permissions {
+  id BIGSERIAL [pk, not null]
+  code VARCHAR(100) [not null, unique]
+  description TEXT
+}
+
+Table role_permissions {
+  role_id BIGINT [not null, ref: > roles.id]
+  permission_id BIGINT [not null, ref: > permissions.id]
+
+  Indexes {
+    (role_id, permission_id) [pk]
+  }
+}
+
+Table user_roles {
+  user_id BIGINT [not null, ref: > users.id]
+  role_id BIGINT [not null, ref: > roles.id]
+
+  Indexes {
+    (user_id, role_id) [pk]
+  }
+}
+
+Table profiles {
+  id BIGSERIAL [pk, not null]
+  user_id BIGINT [not null, ref: > users.id]
+  full_name VARCHAR(255) [not null]
+}
+
+Table groups {
+  id BIGSERIAL [pk, not null]
+  name VARCHAR(255) [not null]
+  description TEXT
+}
+Table profile_groups {
+  profile_id BIGINT [not null, ref: > profiles.id]
+  group_id BIGINT [not null, ref: > groups.id]
+
+  Indexes {
+    (profile_id, group_id) [pk]
+  }
+}
+
+Table absences {
+  id BIGSERIAL [pk, not null]
+  reason VARCHAR(5) [not null]
+  note TEXT
+  recorded_at TIMESTAMP [default: `NOW()`]
+}
+
+Table absence_profiles {
+  absence_id BIGINT [not null, ref: > absences.id]
+  profile_id BIGINT [not null, ref: > profiles.id]
+
+  Indexes {
+    (absence_id, profile_id) [pk]
+  }
+}
