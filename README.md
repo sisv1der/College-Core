@@ -57,15 +57,16 @@ College-Core
     Подробности см. в README.md соответствующих компонентов.
 
 ## Документация
-- **План проекта, описание процессов:**  [`docs/PLAN.md`](docs/PLAN.md)
-- **Общие инструкции:** [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md)
-- **Справочные материалы:** [`docs/HELP.md`](docs/HELP.md)
-- **Troubleshooting:** [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md)
+- [**План проекта, описание процессов**](docs/PLAN.md)
+- [**Общие инструкции**](docs/CONTRIBUTING.md)
+- [**Справочные материалы**](docs/HELP.md)
+- [**Инструкция по работе с окружением**](docs/ENVIRONMENT.md)
+- [**Troubleshooting**](docs/TROUBLESHOOTING.md)
 - **Схема базы данных:** 
-  - **DBML:** [`/docs/db-schema.dbml`](docs/db-schema.dbml)
-  - **DBML-диаграмма:** [`/docs/db-schema.png`](docs/db-schema.png)
-  - **Mermaid-диаграмма:** [`/docs/db-schema.md`](docs/db-schema.md)
-- **Почему мы используем монорепозиторий:** [`/docs/WHY.md`](docs/WHY.md)
+  - [**DBML**](docs/db-schema.dbml)
+  - [**DBML-диаграмма**](docs/db-schema.png)
+  - [**Mermaid-диаграмма**](docs/db-schema.md)
+- [**Почему мы используем монорепозиторий**](docs/WHY.md)
 - **Описание API:** `не готово`
 
 ## Участники
