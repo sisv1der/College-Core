@@ -38,7 +38,7 @@
 
 ## 4. Клонирование Project Cerberus
 ```bash
-git clone https://github.com/your-org/cerberus.git
+git clone https://github.com/sisv1der/cerberus.git
 cd cerberus/backend
 ```
 
