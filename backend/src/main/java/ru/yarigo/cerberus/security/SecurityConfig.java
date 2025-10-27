@@ -1,4 +1,4 @@
-package ru.yarigo.nppkbackend.security;
+package ru.yarigo.cerberus.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

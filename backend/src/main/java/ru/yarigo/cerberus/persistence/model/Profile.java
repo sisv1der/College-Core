@@ -1,4 +1,4 @@
-package ru.yarigo.nppkbackend.persistence.model;
+package ru.yarigo.cerberus.persistence.model;
 
 import jakarta.persistence.*;
 import lombok.Data;

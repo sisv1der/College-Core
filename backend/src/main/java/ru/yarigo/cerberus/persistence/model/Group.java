@@ -1,11 +1,10 @@
-package ru.yarigo.nppkbackend.persistence.model;
+package ru.yarigo.cerberus.persistence.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,26 +12,22 @@ import java.util.Set;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(onlyExplicitlyIncluded = true)
-@Table(name = "absences")
-public class Absence {
+@Table(name = "groups")
+public class Group {
     @Id
     @Column(name = "id", nullable = false)
     @EqualsAndHashCode.Include
     @ToString.Include
     private Long id;
 
-    @Column(name = "reason", nullable = false)
+    @Column(name = "name", nullable = false)
     @ToString.Include
-    private String reason;
+    private String name;
 
-    @Column(name = "note")
+    @Column(name = "description")
     @ToString.Include
-    private String note;
+    private String description;
 
-    @Column(name = "recorded_at", nullable = false)
-    @ToString.Include
-    private LocalDateTime recordedAt;
-
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "absences")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "groups")
     private Set<Profile> profiles = new HashSet<>();
 }

@@ -1,7 +1,7 @@
-package ru.yarigo.nppkbackend.persistence.repository;
+package ru.yarigo.cerberus.persistence.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.yarigo.nppkbackend.persistence.model.Absence;
+import ru.yarigo.cerberus.persistence.model.Absence;
 
 public interface AbsenceRepository extends JpaRepository<Absence, Long> {
 }

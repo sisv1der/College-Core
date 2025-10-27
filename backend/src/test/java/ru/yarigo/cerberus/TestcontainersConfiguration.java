@@ -1,4 +1,4 @@
-package ru.yarigo.nppkbackend;
+package ru.yarigo.cerberus;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;

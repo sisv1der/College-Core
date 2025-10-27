@@ -1,9 +1,9 @@
-package ru.yarigo.nppkbackend.security.model;
+package ru.yarigo.cerberus.security.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.yarigo.nppkbackend.persistence.model.User;
+import ru.yarigo.cerberus.persistence.model.User;
 
 import java.util.Collection;
 

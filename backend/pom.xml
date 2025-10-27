@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>ru.yarigo</groupId>
-    <artifactId>NPPK-Backend</artifactId>
+    <artifactId>cerberus</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>NPPK Backend</name>
-    <description>NPPK Backend</description>
+    <name>Project Cerberus</name>
+    <description/>
     <url/>
     <licenses>
         <license/>

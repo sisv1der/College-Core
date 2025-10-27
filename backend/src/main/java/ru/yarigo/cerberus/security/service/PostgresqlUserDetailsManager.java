@@ -1,6 +1,5 @@
-package ru.yarigo.nppkbackend.security.service;
+package ru.yarigo.cerberus.security.service;
 
-import jakarta.persistence.EntityExistsException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,10 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
-import ru.yarigo.nppkbackend.persistence.repository.RoleRepository;
-import ru.yarigo.nppkbackend.persistence.repository.UserRepository;
-
-import java.util.Set;
+import ru.yarigo.cerberus.persistence.repository.RoleRepository;
+import ru.yarigo.cerberus.persistence.repository.UserRepository;
 
 @Service
 @Transactional

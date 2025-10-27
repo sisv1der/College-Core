@@ -1,4 +1,4 @@
-package ru.yarigo.nppkbackend;
+package ru.yarigo.cerberus;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
